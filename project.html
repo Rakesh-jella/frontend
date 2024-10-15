@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Ek Saath Foundation</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <header>
+        <h1>Ek Saath Foundation</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blogs</a></li>
+                <li><a href="#">Our Supporters</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="current-projects">
+            <h2>Current Projects</h2>
+            <article class="project">
+                <h3>Swachh Kokari</h3>
+                <img src="path/to/image.jpg" alt="Swachh Kokari" class="project-image">
+                <p>Ek Saath Foundation in collaboration with BMC F - North ward aims at turning the slum settlement in Kokari, Wadala, into a zero waste settlement.</p>
+                <ul>
+                    <li>544.5MT of waste sent to the Metro Waste Handling plant for recycling.</li>
+                    <li>Health camps for residents of Kokari Community.</li>
+                    <li>Setup of 10 Dry & Wet waste bins for segregation.</li>
+                </ul>
+            </article>
+            <article class="project">
+                <h3>Carter Cleanup</h3>
+                <img src="path/to/image.jpg" alt="Carter Cleanup" class="project-image">
+                <p>Carter Clean Up is a movement that aims to minimize the plastic footprint to enjoy nature sustainably.</p>
+                <ul>
+                    <li>60000+ Kgs of marine waste cleared.</li>
+                    <li>70+ Company/Institution collaborations.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="support-us">
+            <h2>Support Us</h2>
+            <p>Engage with us! Fill out the form, and we will connect with you.</p>
+            <form id="supportForm">
+                <label for="first-name">First Name *</label>
+                <input type="text" id="first-name" name="first-name" required>
+
+                <label for="last-name">Last Name *</label>
+                <input type="text" id="last-name" name="last-name" required>
+
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="support-type">Support Us as a *</label>
+                <select id="support-type" name="support-type" required>
+                    <option value="Volunteer">Volunteer</option>
+                    <option value="Donor">Donor</option>
+                    <option value="Partner">Partner</option>
+                </select>
+
+                <label for="comment">Add Comment *</label>
+                <textarea id="comment" name="comment" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <p id="responseMessage"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Ek Saath Foundation</p>
+        <p>Contact: <a href="mailto:info@eksaathfoundation.com">info@eksaathfoundation.com</a> | Phone: +91 9152515722</p>
+    </footer>
+
+    <script>
+        document.getElementById('supportForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the form from submitting the default way
+
+            // Prepare the payload for the API request
+            const payload = {
+                data: {
+                    first_name: document.getElementById('first-name').value.trim(),
+                    last_name: document.getElementById('last-name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    support_type: document.getElementById('support-type').value, // Value from select dropdown
+                    comment: document.getElementById('comment').value.trim()
+                }
+            };
+
+            try {
+                const response = await fetch('http://localhost:1337/api/support-requests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    document.getElementById('responseMessage').innerText = 
+                        'Thank you for your support! Your submission ID: ' + jsonResponse.data.id;
+                    document.getElementById('supportForm').reset(); // Clear the form
+                } else {
+                    const errorResponse = await response.json();
+                    document.getElementById('responseMessage').innerText = 
+                        'Error: ' + (errorResponse.error.message || 'Submission failed. Please try again.');
+                }
+            } catch (error) {
+                document.getElementById('responseMessage').innerText = 
+                    'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

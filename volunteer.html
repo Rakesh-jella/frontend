@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer - Ek Saath Foundation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .success-message {
+            display: none;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="text-center my-3">
+        <h1>Projects Open for Volunteering</h1>
+    </header>
+
+    <div class="container my-5">
+        <h2>Current Projects</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Elephanta Island</h5>
+                <p class="card-text">We aim to rejuvenate the marine ecosystem...</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#volunteerModal">Volunteer</button>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Swachh Kokari</h5>
+                <p class="card-text">Ek Saath Foundation in collaboration with BMC...</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#volunteerModal">Volunteer</button>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Carter Cleanup</h5>
+                <p class="card-text">A movement that believes in minimizing the plastic footprint...</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#volunteerModal">Volunteer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer Form Modal -->
+    <div class="modal fade" id="volunteerModal" tabindex="-1" aria-labelledby="volunteerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="volunteerModalLabel">Apply to Volunteer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="volunteerForm">
+                        <!-- Step 1 -->
+                        <div class="form-step active">
+                            <h6>Step 1: Your Details</h6>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" name="phone" id="phone" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="form-step">
+                            <h6>Step 2: Availability</h6>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Preferred Date</label>
+                                <input type="date" name="date" id="date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="time" class="form-label">Preferred Time</label>
+                                <input type="time" name="time" id="time" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Duration (in hours)</label>
+                                <input type="number" name="duration" id="duration" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="form-step">
+                            <h6>Step 3: Verification</h6>
+                            <div class="mb-3">
+                                <input type="checkbox" id="notRobot" required>
+                                <label for="notRobot">I am not a robot</label>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="form-step">
+                            <h6>Step 4: Confirmation</h6>
+                            <p>Thank you for walking with us. You will receive further details via SMS and email.</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3" style="display: none;">Submit</button>
+
+                        <!-- Success Message -->
+                        <div class="success-message" id="successMessage">Your submission was successful! Thank you!</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation logic
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.form-step');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const successMessage = document.getElementById('successMessage');
+
+        nextBtn.addEventListener('click', function () {
+            if (currentStep < steps.length - 1) {
+                steps[currentStep].classList.remove('active');
+                currentStep++;
+                steps[currentStep].classList.add('active');
+                prevBtn.style.display = 'inline';
+                if (currentStep === steps.length - 1) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                }
+            }
+        });
+
+        prevBtn.addEventListener('click', function () {
+            if (currentStep > 0) {
+                steps[currentStep].classList.remove('active');
+                currentStep--;
+                steps[currentStep].classList.add('active');
+                nextBtn.style.display = 'inline';
+                submitBtn.style.display = 'none';
+                successMessage.style.display = 'none'; // Hide success message when going back
+                if (currentStep === 0) {
+                    prevBtn.style.display = 'none';
+                }
+            }
+        });
+
+        document.getElementById('volunteerForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Prepare the payload for the API request
+            const timeValue = document.getElementById('time').value; // Get time in HH:mm format
+            const formattedTime = `${timeValue}:00.000`; // Add seconds and milliseconds
+
+            const payload = {
+                data: {
+                    name: document.getElementById('name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    address: document.getElementById('address').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    date: document.getElementById('date').value, // Keep the date as is
+                    time: formattedTime, // Use the formatted time
+                    duration: parseInt(document.getElementById('duration').value, 10),
+                }
+            };
+
+            try {
+                const response = await fetch('http://localhost:1337/api/volunteers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    successMessage.style.display = 'block'; // Show success message
+                    submitBtn.style.display = 'none'; // Hide submit button
+                    document.getElementById('volunteerForm').reset(); // Clear the form
+                    $('#volunteerModal').modal('hide'); // Hide the modal after submission
+                } else {
+                    throw new Error('Failed to submit the form. Please try again.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('There was an error submitting your form. Please try again later.');
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

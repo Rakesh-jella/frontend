@@ -1,0 +1,57 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #007bff;
+    padding: 50px 0;
+    color: white;
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+}
+
+/* Card Styles */
+.card {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+/* Testimonial Styles */
+.testimonial {
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+/* Contact Info Styles */
+.contact-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin: 10px 0;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+}

@@ -1,0 +1,97 @@
+/* about.css */
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light background for readability */
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 40px;
+    background-color: #343a40; /* Dark background for the header */
+    color: white;
+}
+
+header h1 {
+    font-family: 'Avenir Next LT Pro', sans-serif;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* Section Styles */
+section {
+    padding: 20px;
+    margin: 20px auto;
+    background-color: white; /* White background for content sections */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    max-width: 800px; /* Max width for better readability */
+}
+
+/* Team Section Styles */
+.team {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    justify-content: center; /* Center align team members */
+    margin-top: 20px;
+}
+
+.team-member {
+    background-color: #e9ecef; /* Light gray background for team cards */
+    border-radius: 10px; /* Rounded corners for team cards */
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    width: calc(33% - 40px); /* Three cards per row */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.team-member img {
+    border-radius: 50%; /* Circular profile pictures */
+    width: 100px; /* Fixed width for profile pictures */
+    height: 100px; /* Fixed height for profile pictures */
+}
+
+.team-member h3 {
+    margin: 10px 0 5px;
+    font-family: 'Caveat', cursive; /* Cursive font for names */
+    color: #343a40; /* Dark color for names */
+}
+
+.team-member p {
+    margin: 0;
+    color: #6c757d; /* Gray color for roles */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40; /* Dark footer background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em; /* Reduce font size for smaller screens */
+    }
+
+    .team-member {
+        width: calc(50% - 40px); /* Two cards per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .team-member {
+        width: 100%; /* One card per row on very small screens */
+    }
+}
